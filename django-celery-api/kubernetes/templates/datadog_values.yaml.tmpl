@@ -1,0 +1,86 @@
+datadog:
+  apiKey: ${api_key}
+  site: datadoghq.eu
+  ignoreAutoConfig:
+    - cilium
+  apm:
+    portEnabled: false
+  otlp:
+    receiver:
+      protocols:
+        grpc:
+          enabled: false
+          endpoint: "0.0.0.0:4317"
+          useHostPort: true
+        http:
+          enabled: false
+          endpoint: "0.0.0.0:4318"
+          useHostPort: true
+    logs:
+      enabled: false
+  logs:
+    enabled: true
+    containerCollectAll: false
+  env:
+    - name: REDIS_PASSWORD
+      value: "${redis_password}"
+  confd:
+    redisdb.yaml: |-
+      init_config:
+      instances:
+        - host: "${redis_host}"
+          port: "${redis_port}"
+          password: "${redis_password}"
+          username: "${redis_user}"
+          ssl: true
+    postgres.yaml: |-
+      init_config:
+      instances:
+        - host: "${postgres_host}"
+          port: "${postgres_port}"
+          password: "${postgres_password}"
+          username: "${postgres_username}"
+          dbname: "${postgres_dbname}"
+          ssl: "require"
+    elastic.yaml: |-
+      init_config:
+      instances:
+        - url: "${elasticsearch_host}"
+          username: "${elasticsearch_username}"
+          password: "${elasticsearch_password}"
+          auth_type: basic
+          cluster_stats: true
+          pshard_stats: true
+    rabbitmq.yaml: |-
+      init_config:
+      instances:
+        - prometheus_plugin:
+            url: "http://${rabbitmq_host}:9419"
+    python.yaml: |-
+      init_config:
+      instances:
+      logs:
+        - type: file
+          path: "/var/logs/rest-api/json.log"
+          service: "rest-api"
+          source: python
+          sourcecategory: sourcecode
+        - type: file
+          path: "/var/logs/celery-worker/json.log"
+          service: "celery"
+          source: python
+          sourcecategory: sourcecode
+  
+agents:
+  volumes:
+    - name: celery-logs
+      hostPath:
+        path: /var/logs/celery-worker/
+    - name: rest-api-logs
+      hostPath:
+        path: /var/logs/rest-api/
+  volumeMounts:
+    - name: rest-api-logs
+      mountPath: /var/logs/rest-api/
+    - name: celery-logs
+      mountPath: /var/logs/celery-worker/

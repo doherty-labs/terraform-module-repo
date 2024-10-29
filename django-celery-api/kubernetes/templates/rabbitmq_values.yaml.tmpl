@@ -1,0 +1,14 @@
+auth:
+  username: main_user
+  password: ${password}
+extraConfiguration: |-
+  default_vhost = myvhost
+  default_permissions.configure = .*
+  default_permissions.read = .*
+  default_permissions.write = .*
+service:
+  type: LoadBalancer
+  loadBalancerSourceRanges:
+    - 0.0.0.0/0
+metrics:
+  enabled: true

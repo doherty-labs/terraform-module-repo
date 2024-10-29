@@ -1,0 +1,7 @@
+provider: cloudflare
+cloudflare:
+  apiToken: ${api_token}
+  proxied: true
+domainFilters:
+  - ${cloudflare_main_domain}
+txtOwnerId: external-dns
