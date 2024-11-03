@@ -94,7 +94,7 @@ django:
   django_superuser_password: "XXXX"
 ```
 
-# Digital Ocean Tokens 
+# DigitalOcean Tokens 
 - Generate Terraform Token https://docs.digitalocean.com/reference/api/create-personal-access-token/
 - Generate Spaces Access Token https://docs.digitalocean.com/products/spaces/how-to/manage-access/
 
