@@ -5,6 +5,7 @@
 - Datadog Account, Register here: [https://bit.ly/4frmiEW](https://bit.ly/4frmiEW)
 - Elastic Cloud Account, Free Trial here [https://bit.ly/3YyG1M9](https://bit.ly/3YyG1M9)
 - Cloudflare, Register here: [https://bit.ly/4eczsVp](https://bit.ly/4eczsVp)
+- HashiCorp Cloud Platform, Register here: [https://bit.ly/48Bab5V](https://bit.ly/48Bab5V)
   
 
 # Architecture Overview
