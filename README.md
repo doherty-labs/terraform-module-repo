@@ -12,7 +12,8 @@
 
 Django Celery terraform module
 
-![image](https://github.com/user-attachments/assets/f78e5363-6d17-4bc4-962d-69de5b285547)
+![image](https://github.com/user-attachments/assets/b60d0fc4-81c2-4243-b058-6779162c3d07)
+
 
 # Example Inputs 
 
