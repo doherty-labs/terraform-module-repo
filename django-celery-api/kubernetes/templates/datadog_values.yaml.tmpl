@@ -4,17 +4,13 @@ datadog:
   ignoreAutoConfig:
     - cilium
   apm:
-    portEnabled: false
+    portEnabled: true
   otlp:
     receiver:
       protocols:
         grpc:
-          enabled: false
+          enabled: true
           endpoint: "0.0.0.0:4317"
-          useHostPort: true
-        http:
-          enabled: false
-          endpoint: "0.0.0.0:4318"
           useHostPort: true
     logs:
       enabled: false
@@ -66,21 +62,92 @@ datadog:
           source: python
           sourcecategory: sourcecode
         - type: file
+          path: "/var/logs/celery-flower/json.log"
+          service: "celery-flower"
+          source: python
+          sourcecategory: sourcecode
+        - type: file
           path: "/var/logs/celery-worker/json.log"
-          service: "celery"
+          service: "celery-worker"
+          source: python
+          sourcecategory: sourcecode
+        - type: file
+          path: "/var/logs/celery-scheduler/json.log"
+          service: "celery-scheduler"
+          source: python
+          sourcecategory: sourcecode
+        - type: file
+          path: "/var/logs/collect-static-job/json.log"
+          service: "collect-static-job"
+          source: python
+          sourcecategory: sourcecode
+        - type: file
+          path: "/var/logs/create-superuser-job/json.log"
+          service: "create-superuser-job"
+          source: python
+          sourcecategory: sourcecode
+        - type: file
+          path: "/var/logs/elastic-migrate-job/json.log"
+          service: "elastic-migrate-job"
+          source: python
+          sourcecategory: sourcecode
+        - type: file
+          path: "/var/logs/migrate-job/json.log"
+          service: "migrate-job"
+          source: python
+          sourcecategory: sourcecode
+        - type: file
+          path: "/var/logs/websocket-service/json.log"
+          service: "websocket-service"
           source: python
           sourcecategory: sourcecode
   
 agents:
   volumes:
-    - name: celery-logs
-      hostPath:
-        path: /var/logs/celery-worker/
     - name: rest-api-logs
       hostPath:
         path: /var/logs/rest-api/
+    - name: celery-flower-logs
+      hostPath:
+        path: /var/logs/celery-flower/
+    - name: celery-worker-logs
+      hostPath:
+        path: /var/logs/celery-worker/
+    - name: celery-scheduler-logs
+      hostPath:
+        path: /var/logs/celery-scheduler/
+    - name: collect-static-job-logs
+      hostPath:
+        path: /var/logs/collect-static-job/
+    - name: create-superuser-job-logs
+      hostPath:
+        path: /var/logs/create-superuser-job/
+    - name: elastic-migrate-job-logs
+      hostPath:
+        path: /var/logs/elastic-migrate-job/
+    - name: migrate-job-logs
+      hostPath:
+        path: /var/logs/migrate-job/
+    - name: websocket-service-logs
+      hostPath:
+        path: /var/logs/websocket-service/
+    
   volumeMounts:
     - name: rest-api-logs
       mountPath: /var/logs/rest-api/
-    - name: celery-logs
+    - name: celery-flower-logs
+      mountPath: /var/logs/celery-flower/
+    - name: celery-worker-logs
       mountPath: /var/logs/celery-worker/
+    - name: celery-scheduler-logs
+      mountPath: /var/logs/celery-scheduler/
+    - name: collect-static-job-logs
+      mountPath: /var/logs/collect-static-job/
+    - name: create-superuser-job-logs
+      mountPath: /var/logs/create-superuser-job/
+    - name: elastic-migrate-job-logs
+      mountPath: /var/logs/elastic-migrate-job/
+    - name: migrate-job-logs
+      mountPath: /var/logs/migrate-job/
+    - name: websocket-service-logs
+      mountPath: /var/logs/websocket-service/
